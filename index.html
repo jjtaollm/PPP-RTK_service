@@ -163,11 +163,60 @@
         Please submit a request form if you need access support, product details,
         or help with data usage.
       </p>
-      <a class="request-link" href="https://example.org/request-access" target="_blank" rel="noreferrer">
+      <button class="request-link" type="button" data-open-request>
         Request Access
-      </a>
+      </button>
     </section>
   </main>
+
+  <div class="request-modal" id="request-modal" hidden>
+    <div class="request-dialog" role="dialog" aria-modal="true" aria-labelledby="request-title">
+      <button class="modal-close" type="button" aria-label="Close request form" data-close-request>&times;</button>
+      <p class="kicker">Access request</p>
+      <h2 id="request-title">Request Service Access</h2>
+      <form class="request-form" id="request-form">
+        <label>
+          Name
+          <input name="name" autocomplete="name" required>
+        </label>
+        <label>
+          Institution
+          <input name="institution" autocomplete="organization" required>
+        </label>
+        <label>
+          Email address
+          <input name="email" type="email" autocomplete="email" required>
+        </label>
+        <label>
+          Requested access
+          <input name="access" placeholder="Real-time stream, FTP archive, technical details..." required>
+        </label>
+        <label>
+          Intended use
+          <textarea name="use" rows="4" required></textarea>
+        </label>
+        <label>
+          Additional message
+          <textarea name="message" rows="3"></textarea>
+        </label>
+        <p class="form-note">Your email client will open with the completed request. If it does not open, use the draft
+          below and send it to rts_request_info@163.com.</p>
+        <button class="action primary" type="submit">Compose Email</button>
+      </form>
+      <div class="email-draft" id="email-draft" hidden>
+        <h3>Email draft</h3>
+        <p>Send this request to <a href="mailto:rts_request_info@163.com">rts_request_info@163.com</a>.</p>
+        <label>
+          Subject
+          <input id="draft-subject" readonly>
+        </label>
+        <label>
+          Message
+          <textarea id="draft-body" rows="10" readonly></textarea>
+        </label>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <p>Maintained for academic and research use.</p>
@@ -176,11 +225,71 @@
   <script>
     const documentationButton = document.querySelector(".inline-trigger");
     const technicalNotes = document.querySelector("#technical-notes");
+    const requestModal = document.querySelector("#request-modal");
+    const requestForm = document.querySelector("#request-form");
+    const emailDraft = document.querySelector("#email-draft");
+    const draftSubject = document.querySelector("#draft-subject");
+    const draftBody = document.querySelector("#draft-body");
+    const openRequestButton = document.querySelector("[data-open-request]");
+    const closeRequestButton = document.querySelector("[data-close-request]");
+    const requestRecipient = "rts_request_info@163.com";
 
     documentationButton?.addEventListener("click", () => {
       const isOpen = documentationButton.getAttribute("aria-expanded") === "true";
       documentationButton.setAttribute("aria-expanded", String(!isOpen));
       technicalNotes.hidden = isOpen;
+    });
+
+    const openRequestModal = () => {
+      requestModal.hidden = false;
+      emailDraft.hidden = true;
+      requestForm.querySelector("input")?.focus();
+    };
+
+    const closeRequestModal = () => {
+      requestModal.hidden = true;
+      openRequestButton?.focus();
+    };
+
+    openRequestButton?.addEventListener("click", openRequestModal);
+    closeRequestButton?.addEventListener("click", closeRequestModal);
+
+    requestModal?.addEventListener("click", (event) => {
+      if (event.target === requestModal) {
+        closeRequestModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !requestModal.hidden) {
+        closeRequestModal();
+      }
+    });
+
+    requestForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(requestForm);
+      const body = [
+        `Name: ${formData.get("name")}`,
+        `Institution: ${formData.get("institution")}`,
+        `Email: ${formData.get("email")}`,
+        `Requested access: ${formData.get("access")}`,
+        "",
+        "Intended use:",
+        formData.get("use"),
+        "",
+        "Additional message:",
+        formData.get("message") || "N/A",
+      ].join("\n");
+
+      const subject = "PPP-IAR Service Access Request";
+      draftSubject.value = subject;
+      draftBody.value = body;
+      emailDraft.hidden = false;
+      emailDraft.scrollIntoView({ block: "nearest", behavior: "smooth" });
+
+      window.location.href = `mailto:${requestRecipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   </script>
 </body>
