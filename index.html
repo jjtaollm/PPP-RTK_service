@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="PPP-IAR research platform for real-time GNSS products, monitoring, and data access.">
+  <title>PPP-IAR Research Platform</title>
+  <link rel="stylesheet" href="research-platform.css?v=20260607">
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="identity" href="./" aria-label="Satellite-Based Corrections Research Platform">
+      <span class="seal">GNSS</span>
+      <span>
+        <strong>Satellite-Based Correction Service for PPP-RTK in Mainland China</strong>
+        <small>Powered by KPL GNSS research group</small>
+      </span>
+    </a>
+    <nav aria-label="Platform navigation">
+      <a href="#resources">Resources</a>
+      <a href="#operation">Operation</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="kicker">Real-time GNSS research service</p>
+        <h1>Real-Time PPP-IAR Products, Monitoring, and Service Access</h1>
+        <p>
+          A research-oriented platform for publishing PPP-IAR real-time service
+          resources, product access links, monitoring dashboards, and technical
+          notes for academic users.
+        </p>
+        <div class="actions">
+          <a class="action primary" href="http://grafana.kplgnss.com/public-dashboards/ff3540e5f1ea4925a21660dcb6d73023"
+            target="_blank" rel="noreferrer">
+            Real-time monitor
+          </a>
+          <a class="action" href="ftp://example.org/ppp-iar/" target="_blank" rel="noreferrer">
+            FTP data access
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="resources">
+      <article>
+        <span>01</span>
+        <h3>Real-time monitoring</h3>
+        <p>Grafana dashboard for real-time PPP-IAR monitoring, including 2-hour warm start tests without atmospheric
+          corrections.</p>
+        <a href="http://grafana.kplgnss.com/public-dashboards/ff3540e5f1ea4925a21660dcb6d73023" target="_blank"
+          rel="noreferrer">
+          Open monitor
+        </a>
+      </article>
+      <article>
+        <span>02</span>
+        <h3>FTP product download</h3>
+        <p>FTP directory for real-time and archived PPP-IAR correction products.</p>
+        <a href="ftp://example.org/ppp-iar/" target="_blank" rel="noreferrer">
+          Open FTP
+        </a>
+      </article>
+      <article>
+        <span>03</span>
+        <h3>Technical notes</h3>
+        <p>Product access, correction types, format, update interval, and usage guidance.</p>
+        <button class="inline-trigger" type="button" aria-expanded="false" aria-controls="technical-notes">
+          Description
+        </button>
+      </article>
+      <div class="technical-notes" id="technical-notes" hidden>
+        <div class="notes-heading">
+          <div>
+            <p class="kicker">Technical notes</p>
+            <h2>Data access and product specification</h2>
+          </div>
+          <p>
+            The table summarizes the access entries and product information for the real-time satellite-based correction
+            service. Using a regional tracking network in China, the service provides real-time multi-GNSS,
+            multi-frequency orbit, clock, code bias, and phase bias products for the China region, covering GPS
+            L1/L2/L5, Galileo
+            E1/E5a/E5b, and BDS B1I/B3I/B2a/B1C signals. Products are available in both center-of-mass (CoM) and antenna
+            phase-center (APC) forms.
+          </p>
+        </div>
+        <div class="table-scroll" role="region" aria-label="Technical notes table" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th>Mountpoint</th>
+                <th>Access</th>
+                <th>Constellations</th>
+                <th>Format</th>
+                <th>Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SSRKPLCLK_CoM</td>
+                <td>
+                  NTRIP://119.96.226.78:8060
+                </td>
+                <td>GPS+Galileo+BDS</td>
+                <td>IGS SSR</td>
+                <td>5 s</td>
+
+              </tr>
+              <tr>
+                <td>SSRKPLCLK_APC</td>
+                <td>
+                  NTRIP://119.96.226.78:8060
+                </td>
+                <td>GPS+Galileo+BDS</td>
+                <td>IGS SSR</td>
+                <td>5 s</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="operation" class="content-block split">
+      <div class="section-title">
+        <p class="kicker">Service notes</p>
+        <h2>Operation updates</h2>
+      </div>
+      <div class="update-log">
+        <article>
+          <time datetime="2026-05-29">2026-05-29</time>
+          <div>
+            <h3>BDS-3 satellite numbering synchronized</h3>
+            <p>The processing program has been updated to align with the latest BDS-3 satellite numbering.</p>
+          </div>
+        </article>
+
+
+        <article>
+          <time datetime="2026-03-23">2026-03-23</time>
+          <div>
+            <h3>GPS Block IIR attitude handling during eclipse periods updated</h3>
+            <p>The processing program has been updated to improve GPS Block IIR attitude handling during eclipse
+              periods.</p>
+          </div>
+        </article>
+
+
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <p class="kicker">Contact</p>
+      <h2>Questions about service access or product use</h2>
+      <p>
+        Please submit a request form if you need access support, product details,
+        or help with data usage.
+      </p>
+      <a class="request-link" href="https://example.org/request-access" target="_blank" rel="noreferrer">
+        Request Access
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Maintained for academic and research use.</p>
+    <p>Page design assisted by ChatGPT.</p>
+  </footer>
+  <script>
+    const documentationButton = document.querySelector(".inline-trigger");
+    const technicalNotes = document.querySelector("#technical-notes");
+
+    documentationButton?.addEventListener("click", () => {
+      const isOpen = documentationButton.getAttribute("aria-expanded") === "true";
+      documentationButton.setAttribute("aria-expanded", String(!isOpen));
+      technicalNotes.hidden = isOpen;
+    });
+  </script>
+</body>
+
+</html>
